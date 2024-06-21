@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="MediatR\Common\" />
+		<PackageReference Include="AWSSDK.SQS" Version="3.7.300.60" />
+		<PackageReference Include="Hangfire.Core" Version="1.8.12" />
+		<PackageReference Include="MediatR" Version="11.0.0" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Consumers\Domain.csproj" />
+	</ItemGroup>
+
+</Project>
