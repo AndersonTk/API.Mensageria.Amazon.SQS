@@ -10,9 +10,9 @@ services:
     ports:
         - "5623:80"
     environment:
-      - "ConnectionStrings__DbConnection=Server=sqlserver;Initial Catalog=rabbitmq_database;User Id=sa;Password=@62745623Tk; TrustServerCertificate=True;"
-      - "AccessKey=anderson"
-      - "SecretKey=62745623"
+      - "ConnectionStrings__DbConnection=${DB_CONNECTION}"
+      - "AccessKey=${RABBITMQ_ACCESSKEY}"
+      - "SecretKey=${RABBITMQ_SECRETKEY}"
       - "MassTransient:enable=true"
       - "RabbitMq:url=rabbitmq"
       - "ASPNETCORE_ENVIRONMENT=staging"
@@ -28,8 +28,8 @@ services:
     ports:
         - "5621:80"
     environment:
-        - "AccessKey=anderson"
-        - "SecretKey=62745623"
+        - "AccessKey=${RABBITMQ_ACCESSKEY}"
+        - "SecretKey=${RABBITMQ_SECRETKEY}"
         - "MassTransient:enable=true"
         - "RabbitMq:url=rabbitmq"
         - "ASPNETCORE_ENVIRONMENT=staging"
@@ -40,7 +40,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
       ACCEPT_EULA: 'Y'
-      SA_PASSWORD: '@62745623Tk'
+      SA_PASSWORD: ${SA_PASSWORD}
     ports:
       - "1433:1433"
     volumes:
@@ -51,8 +51,8 @@ services:
   rabbitmq:
     image: "rabbitmq:3-management"
     environment:
-      RABBITMQ_DEFAULT_USER: "anderson"
-      RABBITMQ_DEFAULT_PASS: "62745623"
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_ACCESSKEY}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_SECRETKEY}
     ports:
       - "5672:5672"
       - "15672:15672"
