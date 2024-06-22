@@ -1,7 +1,6 @@
 ﻿namespace Domain.Contracts.Base;
 
-public abstract class ContractBase
+public abstract class ContractBase : ContractIdBase
 {
-    public Guid Id { get; set; }
     public string CreateUser { get; set; }
 }

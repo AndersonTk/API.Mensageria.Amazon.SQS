@@ -1,9 +1,9 @@
-﻿using Application.Configuration;
+﻿using Application.Consumers.Configuration;
 using Application.Extentions;
 using MassTransit;
 using System.Transactions;
 
-namespace Application.Consumers.Aluno;
+namespace Application.Consumers.AlunoConsumer;
 
 public class AlunoConsumerDefinition : ConsumerDefinition<AlunoConsumer>
 {

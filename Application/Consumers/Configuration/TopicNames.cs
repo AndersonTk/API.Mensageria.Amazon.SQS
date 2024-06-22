@@ -1,4 +1,4 @@
-﻿namespace Application.Configuration;
+﻿namespace Application.Consumers.Configuration;
 
 public static class TopicNames
 {

@@ -2,11 +2,12 @@
 using Application.Requests;
 using AutoMapper;
 using Domain.Contracts;
+using Domain.Entities;
 using MediatR;
 
-namespace Application.Consumers.Aluno;
+namespace Application.Consumers.AlunoConsumer;
 
-public class AlunoConsumer : ConsumerBase<AlunoContract, AlunoRequest, AlunoContract>
+public class AlunoConsumer : ConsumerBase<Aluno, AlunoContract, AlunoRequest, Aluno>
 {
     public AlunoConsumer(IMediator mediator, IMapper mapper) : base(mediator, mapper)
     {

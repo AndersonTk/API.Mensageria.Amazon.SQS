@@ -1,13 +1,17 @@
-﻿using Application.Configuration;
+﻿using Application.Consumers.Configuration;
 using Application.Extentions;
 using Application.Profiles;
 using Application.Requests;
+using Common.MediatR.Commands;
 using Domain.Contracts;
+using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Interfaces.Base;
 using Domain.Interfaces.Common;
 using FluentMigrator.Runner;
 using Infra.Data.Context;
 using Infra.Data.Repositories;
+using Infra.Data.Repositories.Base;
 using Infra.Data.Repositories.Common;
 using MassTransit;
 using MediatR;
@@ -28,6 +32,7 @@ public static class DependencyInjection
 
         #region ContainerDI
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAlunoRepository, AlunoRepository>();
         #endregion
 
@@ -43,6 +48,10 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(AlunoProfile));
 
         services.AddMediatR(typeof(AlunoRequest));
+
+        #region MediatR
+        services.AddScoped<IRequestHandler<PutEntityCommand<Aluno>, Aluno>, PutEntityCommandHandler<Aluno>>();
+        #endregion
     }
 
     public static void AddMassTransientConsumer(this IServiceCollection services, IConfiguration configuration)
@@ -78,8 +87,8 @@ public static class DependencyInjection
                     });
 
                     cfg.UseMessageRetry(a => a.Incremental(3,
-                                    TimeSpan.FromSeconds(1),
-                                    TimeSpan.FromSeconds(1)));
+                                    TimeSpan.FromSeconds(30),
+                                    TimeSpan.FromSeconds(30)));
 
                     cfg.Message<AlunoContract>(x => x.SetEntityName(TopicNames.AlunoTopic.EnviromentName()));
 

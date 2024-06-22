@@ -11,7 +11,7 @@ public class AlunoProfile : Profile
     {
         CreateMap<AlunoRequest, AlunoContract>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(a => a.Id == Guid.Empty ? Guid.NewGuid() : a.Id))
-            .ForMember(dest => dest.CreateUser, opt => opt.MapFrom(a => "Anderson Pinheiro"))
+            .ForMember(dest => dest.CreateUser, opt => opt.MapFrom(a => a.CreateUser))
             .ReverseMap();
 
         CreateMap<Aluno, AlunoContract>().ReverseMap();

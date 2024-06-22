@@ -4,6 +4,6 @@ public static class EnviromentNamesExtentions
 {
     public static string EnviromentName(this string topic)
     {
-        return Environment.MachineName + topic;
+        return Environment.MachineName.ToLower() + topic;
     }
 }

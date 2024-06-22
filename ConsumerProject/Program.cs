@@ -1,8 +1,10 @@
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Infra.Data.Context;
+using Infra.Ioc.Configuration;
 using Infra.Ioc.Infraestructure;
 using Microsoft.EntityFrameworkCore;
+using Serilog.Sinks.LogBee.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,7 @@ var services = builder.Services;
 
 services.AddMassTransientConsumer(builder.Configuration);
 services.AddDependenceInjectionConsumer(builder.Configuration);
+services.AddLoggerConfig(builder.Configuration);
 
 builder.Services.AddControllers();
 
@@ -40,6 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseLogBeeMiddleware();
 
 app.UseStaticFiles();
 

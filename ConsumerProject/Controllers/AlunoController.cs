@@ -29,7 +29,7 @@ public class AlunoController : ControllerBase
     [Route("salvar-aluno")]
     public async Task<IActionResult> Save([FromBody] Aluno entity)
     {
-        var aluno = await _repository.GetByIdNoTrackingAsync(entity.Id);
+        var aluno = await _repository.GetByIdAsNoTrackingAsync(entity.Id);
 
         if(aluno is null)
             return Ok(await _repository.AddAsync(entity));
