@@ -7,15 +7,13 @@ namespace ProducerProject.Controllers;
 
 [ApiController]
 [Route("Producer")]
-public class ConsumerController : ControllerBase
+public class ProducerController : ControllerBase
 {
     private readonly IEventBusInterface<AlunoContract> _bus;
-    private readonly IAlunoRepository _repository;
 
-    public ConsumerController(IEventBusInterface<AlunoContract> bus, IAlunoRepository repository)
+    public ProducerController(IEventBusInterface<AlunoContract> bus)
     {
         _bus = bus;
-        _repository = repository;
     }
 
     [HttpPost]

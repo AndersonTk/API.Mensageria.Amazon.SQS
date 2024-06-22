@@ -29,18 +29,12 @@ public class ApplicationDbContext : DbContext
 
         foreach (var entityEntry in entries)
         {
-            if (entityEntry.State == EntityState.Added)
-            {
-                //((EntityBase)entityEntry.Entity).CreateDate = DateTime.UtcNow;
-            }
-
             if (entityEntry.State == EntityState.Modified)
             {
                 entityEntry.Property("CreateDate").IsModified = false;
                 entityEntry.Property("CreateUser").IsModified = false;
                 ((EntityBase)entityEntry.Entity).UpdateDate = DateTime.UtcNow;
             }
-
         }
 
         return await base.SaveChangesAsync(cancellationToken);

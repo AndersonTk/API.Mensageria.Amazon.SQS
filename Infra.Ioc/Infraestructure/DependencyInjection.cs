@@ -20,7 +20,7 @@ namespace Infra.Ioc.Infraestructure;
 
 public static class DependencyInjection
 {
-    public static void AddDependenceInjection(this IServiceCollection services, IConfiguration configuration)
+    public static void AddDependenceInjectionConsumer(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
@@ -28,8 +28,16 @@ public static class DependencyInjection
 
         #region ContainerDI
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped(typeof(IEventBusInterface<>), typeof(EventBus<>));
         services.AddScoped<IAlunoRepository, AlunoRepository>();
+        #endregion
+
+        #region Migration
+        services.AddFluentMigratorCore()
+                .ConfigureRunner(rb => rb
+                .AddSqlServer()
+                .WithGlobalConnectionString(configuration.GetConnectionString("DbConnection"))
+                .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations())
+                .AddLogging(lb => lb.AddFluentMigratorConsole());
         #endregion
 
         services.AddAutoMapper(typeof(AlunoProfile));
@@ -37,29 +45,28 @@ public static class DependencyInjection
         services.AddMediatR(typeof(AlunoRequest));
     }
 
-    public static void AddDependenceInjectionConsumer(this IServiceCollection services, IConfiguration configuration)
+    public static void AddMassTransientConsumer(this IServiceCollection services, IConfiguration configuration)
     {
         #region MassTransient
-        services.AddMassTransit(x =>
+        if (Boolean.Parse(configuration["MassTransient:enable"]))
         {
-            //x.AddConsumer<AlunoConsumer, AlunoConsumerDefinition>();
-            x.AddConsumers(Assembly.Load("Application"));
-
-            x.SetKebabCaseEndpointNameFormatter();
-
-            x.AddDelayedMessageScheduler();
-
-            x.UsingAmazonSqs((context, cfg) =>
+            services.AddMassTransit(x =>
             {
-                cfg.Host("us-east-2", h =>
-                {
-                    h.AccessKey("AKIA4USGFP4VVQTRFBLO");
-                    h.SecretKey("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");
-                    h.Scope("dev", true);
-                });
+                x.AddConsumers(Assembly.Load("Application"));
 
-                if (Boolean.Parse(configuration["RabbitMq:enable"]))
+                x.SetKebabCaseEndpointNameFormatter();
+
+                x.AddDelayedMessageScheduler();
+
+                x.UsingRabbitMq((context, cfg) =>
                 {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username(configuration["AccessKey"]);
+                        h.Password(configuration["SecretKey"]);
+                    });
+
+
                     cfg.UseDelayedMessageScheduler();
 
                     cfg.UseCircuitBreaker(cb =>
@@ -73,52 +80,40 @@ public static class DependencyInjection
                     cfg.UseMessageRetry(a => a.Incremental(3,
                                     TimeSpan.FromSeconds(1),
                                     TimeSpan.FromSeconds(1)));
-                    //cfg.UseDelayedRedelivery(x => x.Incremental(3, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5)));
-                    //cfg.UseMessageRetry(a => a.Immediate(5));
 
                     cfg.Message<AlunoContract>(x => x.SetEntityName(TopicNames.AlunoTopic.EnviromentName()));
 
                     cfg.ConfigureEndpoints(context, new DefaultEndpointNameFormatter("dev-", false));
-
-                    //cfg.ReceiveEndpoint(Environment.MachineName + "-aluno-queue", ep =>
-                    //{
-                    //    ep.ConcurrentMessageLimit = 2;
-                    //    ep.ConfigureConsumer<AlunoConsumer>(context);
-                    //    ep.UseMessageRetry(a => a.Incremental(3,
-                    //                TimeSpan.FromSeconds(5),
-                    //                TimeSpan.FromSeconds(5)));
-                    //});
-                }
+                });
             });
-        });
-
-        #endregion
-
-        #region Migration
-        services.AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb
-                .AddSqlServer()
-                .WithGlobalConnectionString(configuration.GetConnectionString("DbConnection"))
-                .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations())
-                .AddLogging(lb => lb.AddFluentMigratorConsole());
+        }
         #endregion
     }
 
     public static void AddDependenceInjectionProducer(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMassTransit(x =>
-        {
-            x.UsingAmazonSqs((context, cfg) =>
-            {
-                cfg.Host("us-east-2", h =>
-                {
-                    h.AccessKey("AKIA4USGFP4VVQTRFBLO");
-                    h.SecretKey("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");
-                });
+        #region ContainerDI
+        services.AddScoped(typeof(IEventBusInterface<>), typeof(EventBus<>));
+        #endregion
 
-                cfg.Message<AlunoContract>(x => x.SetEntityName(TopicNames.AlunoTopic.EnviromentName()));
-                cfg.ConfigureEndpoints(context);
+        #region MassTransient
+        if (Boolean.Parse(configuration["MassTransient:enable"]))
+        {
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username(configuration["AccessKey"]);
+                        h.Password(configuration["SecretKey"]);
+                    });
+
+                    cfg.Message<AlunoContract>(x => x.SetEntityName(TopicNames.AlunoTopic.EnviromentName()));
+                    cfg.ConfigureEndpoints(context);
+                });
             });
-        });
+        }
+        #endregion
     }
 }

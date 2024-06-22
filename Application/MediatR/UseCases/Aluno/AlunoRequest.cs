@@ -4,7 +4,6 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Hangfire;
 using MediatR;
-using System.Diagnostics.Contracts;
 
 namespace Application.Requests;
 
@@ -36,9 +35,8 @@ public class AlunoRequestHandler : IRequestHandler<AlunoRequest, AlunoContract>
         }
         else
         {
-            BackgroundJob.Schedule(() => Handle(request, default), TimeSpan.FromMinutes(5));
+            await repository.AddAsync(aluno);
         }
-        //await repository.AddAsync(aluno);
 
         return mapper.Map<AlunoContract>(aluno);
     }

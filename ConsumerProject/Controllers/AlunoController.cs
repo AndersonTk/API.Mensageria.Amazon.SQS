@@ -18,20 +18,16 @@ public class AlunoController : ControllerBase
     [HttpGet]
     [Route("aluno")]
     public async Task<IActionResult> GetAllAsync()
-    {
-        return Ok(await _repository.GetAllAsync());
-    }
+        => Ok(await _repository.GetAllAsync());
 
     [HttpGet]
     [Route("aluno/{id}")]
-    public async Task<IActionResult> GetAsync([FromRoute] Guid id)
-    {
-        return Ok(await _repository.GetByIdAsync(id));
-    }
+    public async Task<IActionResult> GetById([FromRoute] Guid id)
+        => Ok(await _repository.GetByIdAsync(id));
 
     [HttpPost]
     [Route("salvar-aluno")]
-    public async Task<IActionResult> GetAsync([FromBody] Aluno entity)
+    public async Task<IActionResult> Save([FromBody] Aluno entity)
     {
         var aluno = await _repository.GetByIdNoTrackingAsync(entity.Id);
 
