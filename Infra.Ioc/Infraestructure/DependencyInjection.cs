@@ -69,7 +69,7 @@ public static class DependencyInjection
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("localhost", "/", h =>
+                    cfg.Host(configuration["RabbitMq:url"], "/", h =>
                     {
                         h.Username(configuration["AccessKey"]);
                         h.Password(configuration["SecretKey"]);
@@ -112,7 +112,7 @@ public static class DependencyInjection
             {
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("localhost", "/", h =>
+                    cfg.Host(configuration["RabbitMq:url"], "/", h =>
                     {
                         h.Username(configuration["AccessKey"]);
                         h.Password(configuration["SecretKey"]);
