@@ -5,7 +5,7 @@ using Domain.Contracts;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Consumers.AlunoConsumer;
+namespace Application.Consumers;
 
 public class AlunoConsumer : ConsumerBase<Aluno, AlunoContract, AlunoRequest, Aluno>
 {

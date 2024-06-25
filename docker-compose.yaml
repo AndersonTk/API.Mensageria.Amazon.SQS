@@ -14,15 +14,15 @@ services:
       - "AccessKey=${RABBITMQ_ACCESSKEY}"
       - "SecretKey=${RABBITMQ_SECRETKEY}"
       - "MassTransient:enable=true"
-      - "RabbitMq:url=rabbitmq"
-      - "ASPNETCORE_ENVIRONMENT=staging"
+      - "RabbitMq:url=${RABBITMQ_URL}"
+      - "ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}"
     networks:
         - rabbitmq_net
 
   apiproducer:
     build:
         context: .
-        dockerfile: /EstudoMensageria/Dockerfile
+        dockerfile: /ProducerProject/Dockerfile
     depends_on:
         - rabbitmq
     ports:
@@ -31,8 +31,8 @@ services:
         - "AccessKey=${RABBITMQ_ACCESSKEY}"
         - "SecretKey=${RABBITMQ_SECRETKEY}"
         - "MassTransient:enable=true"
-        - "RabbitMq:url=rabbitmq"
-        - "ASPNETCORE_ENVIRONMENT=staging"
+        - "RabbitMq:url=${RABBITMQ_URL}"
+        - "ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}"
     networks:
         - rabbitmq_net
 

@@ -11,6 +11,7 @@ COPY ["ConsumerProject/ConsumerProject.csproj", "ConsumerProject/"]
 COPY ["Infra.Ioc/Infra.Ioc.csproj", "Infra.Ioc/"]
 COPY ["Application/Application.csproj", "Application/"]
 COPY ["Consumers/Domain.csproj", "Consumers/"]
+COPY ["Resources/Resources.csproj", "Resources/"]
 COPY ["Infra.Data/Infra.Data.csproj", "Infra.Data/"]
 RUN dotnet restore "ConsumerProject/ConsumerProject.csproj"
 COPY . .

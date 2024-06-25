@@ -3,7 +3,7 @@ using Application.Extentions;
 using MassTransit;
 using System.Transactions;
 
-namespace Application.Consumers.AlunoConsumer;
+namespace Application.Consumers;
 
 public class AlunoConsumerDefinition : ConsumerDefinition<AlunoConsumer>
 {
