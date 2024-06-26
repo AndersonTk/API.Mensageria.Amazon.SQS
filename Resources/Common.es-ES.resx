@@ -132,4 +132,10 @@
   <data name="EXCEPTION_MSG_NOT_FOUND" xml:space="preserve">
     <value>{0} no encontrado</value>
   </data>
+  <data name="PRODUCT_LBL_CATEGORY" xml:space="preserve">
+    <value>Categoria de producto</value>
+  </data>
+  <data name="CATEGORY_LBL_NAME" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
 </root>

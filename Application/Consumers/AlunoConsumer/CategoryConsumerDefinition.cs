@@ -5,16 +5,16 @@ using System.Transactions;
 
 namespace Application.Consumers;
 
-public class AlunoConsumerDefinition : ConsumerDefinition<AlunoConsumer>
+public class CategoryConsumerDefinition : ConsumerDefinition<CategoryConsumer>
 {
-    public AlunoConsumerDefinition()
+    public CategoryConsumerDefinition()
     {
         ConcurrentMessageLimit = 2;
-        Endpoint(x => x.Name = QueueNames.AlunoQueue.EnviromentName());
+        Endpoint(x => x.Name = QueueNames.CategoryQueue.EnviromentName());
     }
 
     protected override void ConfigureConsumer(IReceiveEndpointConfigurator endpointConfigurator,
-        IConsumerConfigurator<AlunoConsumer> consumerConfigurator)
+        IConsumerConfigurator<CategoryConsumer> consumerConfigurator)
     {
         //endpointConfigurator.UseMessageRetry(r => r.Immediate(2));
         endpointConfigurator.UseTransaction(x =>

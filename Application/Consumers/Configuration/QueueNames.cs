@@ -2,6 +2,6 @@
 
 public static class QueueNames
 {
-    public const string AlunoQueue = "-aluno-queue";
+    public const string CategoryQueue = "-category-queue";
     public const string Product = "-produto-queue";
 }

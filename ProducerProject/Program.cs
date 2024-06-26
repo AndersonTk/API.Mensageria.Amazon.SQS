@@ -1,5 +1,3 @@
-using Domain.Extensions;
-using Infra.Ioc.Configuration.Swagger;
 using Infra.Ioc.Infraestructure;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using System.Reflection;
@@ -18,15 +16,7 @@ var app = builder.Build();
 
 var provider = app.Services.GetService<IApiVersionDescriptionProvider>();
 
-if (app.Environment.IsDevelopment())
-{
-
-}
-
-app.UseApiVersioning();
-
-app.UseMiddleware<SwaggerAuthorizeMiddleware>();
-app.UseMiddleware<ExceptionMiddleware>();
+app.ConfigureAppProducer();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -36,10 +26,6 @@ app.UseSwaggerUI(c =>
         c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
     }
 });
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

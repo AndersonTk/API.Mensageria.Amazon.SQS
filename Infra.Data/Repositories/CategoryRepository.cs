@@ -5,9 +5,9 @@ using Infra.Data.Repositories.Common;
 
 namespace Infra.Data.Repositories;
 
-public class AlunoRepository : Repository<Aluno>, IAlunoRepository
+public class CategoryRepository : Repository<Category>, IICategoryRepository
 {
-    public AlunoRepository(ApplicationDbContext dbContext) : base(dbContext)
+    public CategoryRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
     }
 }

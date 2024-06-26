@@ -24,7 +24,8 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IEventBusInterface<>), typeof(EventBus<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IAlunoRepository, AlunoRepository>();
+        services.AddScoped<IICategoryRepository, CategoryRepository>();
+        services.AddScoped<IProductCategory, ProductRepository>();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureConsumerSwaggerOptions>();
         #endregion
 
@@ -37,7 +38,7 @@ public static class DependencyInjection
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
         #endregion
 
-        services.AddAutoMapper(typeof(AlunoProfile));
+        services.AddAutoMapper(typeof(CategoryProfile));
     }
 
     public static void AddDependenceInjectionProducer(this IServiceCollection services)

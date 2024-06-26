@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string CATEGORY_LBL_NAME {
+            get {
+                return ResourceManager.GetString("CATEGORY_LBL_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The field {0} is required.
         /// </summary>
         public static string DATA_ANOTATION_REQUIRED {
@@ -93,6 +102,15 @@ namespace Resources {
         public static string EXCEPTION_MSG_THE_PROPERTY_CANNOT_BE_NULL {
             get {
                 return ResourceManager.GetString("EXCEPTION_MSG_THE_PROPERTY_CANNOT_BE_NULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product category.
+        /// </summary>
+        public static string PRODUCT_LBL_CATEGORY {
+            get {
+                return ResourceManager.GetString("PRODUCT_LBL_CATEGORY", resourceCulture);
             }
         }
         

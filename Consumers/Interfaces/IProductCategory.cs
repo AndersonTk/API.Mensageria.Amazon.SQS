@@ -2,7 +2,5 @@
 using Domain.Interfaces.Common;
 
 namespace Domain.Interfaces;
-
-public interface IAlunoRepository : IRepository<Aluno>
-{
-}
+public interface IProductCategory : IRepository<Product>
+{ }

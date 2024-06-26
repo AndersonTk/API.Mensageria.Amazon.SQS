@@ -2,8 +2,9 @@
 
 namespace Domain.Entities;
 
-public class Aluno : EntityBase
+public class Category : EntityBase
 {
     public string Name { get; set; }
-    public string CPF { get; set; }
+
+    public ICollection<Product> Products { get; set; }
 }

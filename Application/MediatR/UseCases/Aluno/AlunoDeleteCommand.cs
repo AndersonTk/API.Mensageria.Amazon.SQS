@@ -9,7 +9,7 @@ public class AlunoDeleteCommand : ContractIdBase, IRequest<bool>
 {
 }
 
-public class AlunoDeleteCommandHandler : DeleteCommandHandler<Aluno, AlunoDeleteCommand>
+public class AlunoDeleteCommandHandler : DeleteCommandHandler<Category, AlunoDeleteCommand>
 {
     public AlunoDeleteCommandHandler(IMediator mediator) : base(mediator)
     {

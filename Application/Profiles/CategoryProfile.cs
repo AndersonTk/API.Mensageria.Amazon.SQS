@@ -5,15 +5,15 @@ using Domain.Entities;
 
 namespace Application.Profiles;
 
-public class AlunoProfile : Profile
+public class CategoryProfile : Profile
 {
-    public AlunoProfile()
+    public CategoryProfile()
     {
-        CreateMap<AlunoRequest, AlunoContract>()
+        CreateMap<CategoryOrchestratorCommand, CategoryContract>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(a => a.Id == Guid.Empty ? Guid.NewGuid() : a.Id))
             .ForMember(dest => dest.CreateUser, opt => opt.MapFrom(a => a.CreateUser))
             .ReverseMap();
 
-        CreateMap<Aluno, AlunoContract>().ReverseMap();
+        CreateMap<Category, CategoryContract>().ReverseMap();
     }
 }

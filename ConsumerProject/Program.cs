@@ -1,11 +1,7 @@
-using Domain.Extensions;
-using Hangfire;
 using Infra.Data.Context;
-using Infra.Ioc.Configuration.Swagger;
 using Infra.Ioc.Infraestructure;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using Serilog.Sinks.LogBee.AspNetCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,25 +25,7 @@ dbContext.Database.Migrate();
 
 var provider = app.Services.GetService<IApiVersionDescriptionProvider>();
 
-if (app.Environment.IsDevelopment())
-{
-
-}
-
-app.UseApiVersioning();
-
-app.UseMiddleware<SwaggerAuthorizeMiddleware>();
-app.UseMiddleware<ExceptionMiddleware>();
-
-app.UseLogBeeMiddleware();
-
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.ConfigureAppConsumer();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -56,11 +34,6 @@ app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
     }
-});
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHangfireDashboard("/hangfire");
 });
 
 app.MapControllers();

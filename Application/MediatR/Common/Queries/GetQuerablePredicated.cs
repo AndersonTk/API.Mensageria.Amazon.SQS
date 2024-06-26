@@ -7,7 +7,7 @@ namespace Application.Common.Queries;
 
 public class GetQuerablePredicated<TEntity> : IRequest<IQueryable<TEntity>> where TEntity : EntityBase
 {
-    public Expression<Func<TEntity, bool>> Predicated { get; set; }
+    public Expression<Func<TEntity, bool>>? Predicated { get; set; }
 }
 
 public class GetQuerablePredicatedHandler<TEntity> : IRequestHandler<GetQuerablePredicated<TEntity>, IQueryable<TEntity>> where TEntity : EntityBase
@@ -20,6 +20,9 @@ public class GetQuerablePredicatedHandler<TEntity> : IRequestHandler<GetQuerable
     }
     public async Task<IQueryable<TEntity>> Handle(GetQuerablePredicated<TEntity> request, CancellationToken cancellationToken)
     {
-        return _repository.GetAllQuerable().Where(request.Predicated);
+        if(request.Predicated is null)
+            return _repository.GetAllQuerable();
+        else
+            return _repository.GetAllQuerable().Where(request.Predicated);
     }
 }

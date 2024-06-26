@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infra.Data.Mappings;
 
-public class AlunoMapping : IEntityTypeConfiguration<Aluno>
+public class CategoryMapping : IEntityTypeConfiguration<Category>
 {
-    public void Configure(EntityTypeBuilder<Aluno> entity)
+    public void Configure(EntityTypeBuilder<Category> entity)
     {
-        var tableName = nameof(Aluno);
+        var tableName = nameof(Category);
 
         entity.ToTable(tableName);
 
@@ -16,7 +16,6 @@ public class AlunoMapping : IEntityTypeConfiguration<Aluno>
 
         entity.Property(a => a.Id).HasColumnName($"{tableName}Id");
         entity.Property(a => a.Name).IsRequired();
-        entity.Property(a => a.CPF).IsRequired().HasMaxLength(11);
         entity.Property(a => a.CreateUser).IsRequired();
         entity.Property(a => a.CreateDate).IsRequired();
         entity.Property(a => a.UpdateUser).IsRequired(false);

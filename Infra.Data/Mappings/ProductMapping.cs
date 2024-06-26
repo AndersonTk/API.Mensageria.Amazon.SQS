@@ -20,5 +20,10 @@ public class ProductMapping : IEntityTypeConfiguration<Product>
         entity.Property(a => a.CreateDate).IsRequired();
         entity.Property(a => a.UpdateUser).IsRequired(false);
         entity.Property(a => a.UpdateDate).IsRequired(false);
+
+        entity.HasOne(a => a.Category).WithMany(a => a.Products)
+            .HasForeignKey(a => a.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
     }
 }

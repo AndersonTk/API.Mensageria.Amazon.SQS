@@ -12,13 +12,13 @@ public class UnitOfWork : IUnitOfWork
     private IDbContextTransaction _transaction;
 
     public UnitOfWork(ApplicationDbContext dbContext,
-                      IAlunoRepository alunoRepository)
+                      IICategoryRepository alunoRepository)
     {
         _dbContext = dbContext;
         Alunos = alunoRepository;
     }
 
-    public IAlunoRepository Alunos { get; set; }
+    public IICategoryRepository Alunos { get; set; }
 
     public async Task SaveChangesAsync()
     {

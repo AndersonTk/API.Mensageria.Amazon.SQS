@@ -20,6 +20,12 @@ public static class DependencyInjectionMediatR
         service.AddScoped<IRequestHandler<GetQuerablePredicated<Product>, IQueryable<Product>>, GetQuerablePredicatedHandler<Product>>();
         service.AddScoped<IRequestHandler<PutEntityCommand<Product>, Product>, PutEntityCommandHandler<Product>>();
         service.AddScoped<IRequestHandler<DeleteEntityCommand<Product>, bool>, DeleteEntityCommandHandler<Product>>();
+        
+        service.AddScoped<IRequestHandler<GetAllQuery<Category>, IEnumerable<Category>>, GetAllQueryHandler<Category>>();
+        service.AddScoped<IRequestHandler<GetByIdQuery<Category>, Category>, GetByIdQueryHandler<Category>>();
+        service.AddScoped<IRequestHandler<GetQuerablePredicated<Category>, IQueryable<Category>>, GetQuerablePredicatedHandler<Category>>();
+        service.AddScoped<IRequestHandler<PutEntityCommand<Category>, Category>, PutEntityCommandHandler<Category>>();
+        service.AddScoped<IRequestHandler<DeleteEntityCommand<Category>, bool>, DeleteEntityCommandHandler<Category>>();
         #endregion
 
         return service;

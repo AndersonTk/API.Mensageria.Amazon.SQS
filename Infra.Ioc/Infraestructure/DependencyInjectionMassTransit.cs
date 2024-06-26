@@ -47,7 +47,7 @@ public static class DependencyInjectionMassTransit
                                     TimeSpan.FromSeconds(30),
                                     TimeSpan.FromSeconds(10)));
 
-                    cfg.Message<AlunoContract>(x => x.SetEntityName(TopicNames.AlunoTopic.EnviromentName()));
+                    cfg.Message<CategoryContract>(x => x.SetEntityName(TopicNames.CategoryTopic.EnviromentName()));
                     cfg.Message<ProductContract>(x => x.SetEntityName(TopicNames.ProductTopic.EnviromentName()));
 
                     cfg.ConfigureEndpoints(context, new DefaultEndpointNameFormatter($"{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower()}-", false));
@@ -62,7 +62,7 @@ public static class DependencyInjectionMassTransit
         #region ContainerDI
         #endregion
 
-        services.AddAutoMapper(typeof(AlunoProfile));
+        services.AddAutoMapper(typeof(CategoryProfile));
 
         #region MassTransient
         if (Boolean.Parse(configuration["MassTransient:enable"]))
@@ -77,7 +77,7 @@ public static class DependencyInjectionMassTransit
                         h.Password(configuration["SecretKey"]);
                     });
 
-                    cfg.Message<AlunoContract>(x => x.SetEntityName(TopicNames.AlunoTopic.EnviromentName()));
+                    cfg.Message<CategoryContract>(x => x.SetEntityName(TopicNames.CategoryTopic.EnviromentName()));
                     cfg.Message<ProductContract>(x => x.SetEntityName(TopicNames.ProductTopic.EnviromentName()));
                     cfg.ConfigureEndpoints(context);
                 });

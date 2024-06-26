@@ -1,10 +1,12 @@
 ﻿using Application.Common.MediatR.Queries;
+using Application.Common.Queries;
 using Application.DTOs;
 using AutoMapper;
 using Controllers.Base;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsumerProject.Controllers;
 
@@ -19,7 +21,10 @@ public class ProductController : MainController
     [HttpGet]
     [Route("listar-produtos")]
     public async Task<IActionResult> GetAllAsync()
-        => CustomResponse(_mapper.Map<IEnumerable<ProductDto>>(await _mediator.Send(new GetAllQuery<Product>())));
+    {
+        var query = await _mediator.Send(new GetQuerablePredicated<Product>());
+        return  CustomResponse(_mapper.Map<IEnumerable<ProductDto>>(query.Include(a => a.Category)));
+    }
 
     [HttpGet]
     [Route("buscar-produto/{id}")]

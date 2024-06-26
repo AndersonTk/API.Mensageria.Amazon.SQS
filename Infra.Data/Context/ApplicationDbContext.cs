@@ -11,13 +11,13 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<Aluno> Alunos { get; set; }
+    public DbSet<Category> Alunos { get; set; }
     public DbSet<Product> Product { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.ApplyConfiguration(new AlunoMapping());
+        builder.ApplyConfiguration(new CategoryMapping());
         builder.ApplyConfiguration(new ProductMapping());
     }
 
