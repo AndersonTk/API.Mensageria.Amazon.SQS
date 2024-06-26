@@ -11,16 +11,19 @@ public class Product : EntityBase
     public Guid CategoryId { get; set; }
     public Category Category { get; set; }
 
-    public Product(string name, Guid categoryId)
+    public Product() { }
+
+    public Product(string name, Guid categoryId) : base()
     {
         Name = name;
         CategoryId = categoryId;
 
-        Valiate();
+        Validate();
     }
 
-    public void Valiate()
+    public void Validate()
     {
+        DomainExceptionValidation.When(Id == Guid.Empty, RS.DATA_ANOTATION_REQUIRED.Replace("{0}", RS.ENTITY_LBL_IDENTIFIER));
         DomainExceptionValidation.When(string.IsNullOrEmpty(Name), RS.DATA_ANOTATION_REQUIRED.Replace("{0}", RS.PRODUCT_LBL_NAME));
         DomainExceptionValidation.When((CategoryId == null || CategoryId == Guid.Empty), RS.DATA_ANOTATION_REQUIRED.Replace("{0}", RS.PRODUCT_LBL_CATEGORY));
     }

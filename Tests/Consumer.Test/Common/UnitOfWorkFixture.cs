@@ -11,8 +11,8 @@ public class UnitOfWorkFixture
     public readonly ICategoryRepository Categories;
     public readonly IProductRepository Products;
 
-    public static DbContextOptions<ApplicationDbContext> DbContext { get; set; }
-
+    private static DbContextOptions<ApplicationDbContext> DbContext { get; set; }
+    private static ApplicationDbContext ApplicationDbContext {  get; set; }
     static UnitOfWorkFixture()
     {
         var assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -21,14 +21,20 @@ public class UnitOfWorkFixture
 
         Env.Load(envFilePath);
         var connectionString = Env.GetString("DB_CONNECTION_DEV");
+
         DbContext = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(connectionString).Options;
+
+        ApplicationDbContext = new ApplicationDbContext(DbContext);
     }
 
     public UnitOfWorkFixture()
     {
-        var context = new ApplicationDbContext(DbContext);
-        Categories = new CategoryRepository(context);
-        Products = new ProductRepository(context);
+        //var context = new ApplicationDbContext(DbContext);
+        Categories = new CategoryRepository(ApplicationDbContext);
+        Products = new ProductRepository(ApplicationDbContext);
     }
+
+    public async Task SaveChangesAsync()
+        => await ApplicationDbContext.SaveChangesAsync();
 }
