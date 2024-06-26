@@ -2,7 +2,7 @@
 
 public interface IUnitOfWork : IDisposable
 {
-    public IICategoryRepository Alunos{ get; set; }
+    public ICategoryRepository Category { get; set; }
 
     Task SaveChangesAsync();
     void Atach<T>(T entity) where T : class;

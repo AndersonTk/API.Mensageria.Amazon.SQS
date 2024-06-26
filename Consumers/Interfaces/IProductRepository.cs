@@ -2,5 +2,5 @@
 using Domain.Interfaces.Common;
 
 namespace Domain.Interfaces;
-public interface IProductCategory : IRepository<Product>
+public interface IProductRepository : IRepository<Product>
 { }

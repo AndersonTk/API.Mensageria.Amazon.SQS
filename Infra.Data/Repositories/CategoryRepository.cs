@@ -5,7 +5,7 @@ using Infra.Data.Repositories.Common;
 
 namespace Infra.Data.Repositories;
 
-public class CategoryRepository : Repository<Category>, IICategoryRepository
+public class CategoryRepository : Repository<Category>, ICategoryRepository
 {
     public CategoryRepository(ApplicationDbContext dbContext) : base(dbContext)
     {

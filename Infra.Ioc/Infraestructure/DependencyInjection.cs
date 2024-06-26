@@ -24,8 +24,8 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IEventBusInterface<>), typeof(EventBus<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IICategoryRepository, CategoryRepository>();
-        services.AddScoped<IProductCategory, ProductRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureConsumerSwaggerOptions>();
         #endregion
 

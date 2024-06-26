@@ -3,6 +3,6 @@ using Domain.Interfaces.Common;
 
 namespace Domain.Interfaces;
 
-public interface IICategoryRepository : IRepository<Category>
+public interface ICategoryRepository : IRepository<Category>
 {
 }
