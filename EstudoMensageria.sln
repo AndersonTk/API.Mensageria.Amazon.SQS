@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resources", "Resources\Reso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProducerProject", "ProducerProject\ProducerProject.csproj", "{6DC2EE97-A8DE-472C-AEF3-6B397C4EBA84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire", "Hangfire\Hangfire.csproj", "{AEF69D88-187D-4AD8-AD17-304017645563}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{6DC2EE97-A8DE-472C-AEF3-6B397C4EBA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DC2EE97-A8DE-472C-AEF3-6B397C4EBA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DC2EE97-A8DE-472C-AEF3-6B397C4EBA84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF69D88-187D-4AD8-AD17-304017645563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF69D88-187D-4AD8-AD17-304017645563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF69D88-187D-4AD8-AD17-304017645563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF69D88-187D-4AD8-AD17-304017645563}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

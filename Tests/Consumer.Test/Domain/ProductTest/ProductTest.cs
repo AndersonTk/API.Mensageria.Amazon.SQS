@@ -68,9 +68,9 @@ public class ProductTest : IClassFixture<UnitOfWorkFixture>
         var product = new Product();
         product.CategoryId = category.Id;
 
-        var save = await _unitOfWork.Products.UpdateAsync(product);
+        var save = await _unitOfWork.Products.AddAsync(product);
 
-        var exception = Assert.Throws<DomainExceptionValidation>(() => product.Validate());
+        var exception = Assert.Throws<DomainExceptionValidation>(() => save.Validate());
 
         Assert.NotNull(product);
         Assert.Null(product.Name);
@@ -88,7 +88,7 @@ public class ProductTest : IClassFixture<UnitOfWorkFixture>
         var product = new Product();
         product.Name = newName;
 
-        var save = await _unitOfWork.Products.UpdateAsync(product);
+        var save = await _unitOfWork.Products.AddAsync(product);
 
         var exception = Assert.Throws<DomainExceptionValidation>(() => product.Validate());
 

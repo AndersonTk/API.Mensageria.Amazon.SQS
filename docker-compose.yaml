@@ -61,9 +61,21 @@ services:
     networks:
       - rabbitmq_net
 
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    networks:
+      - rabbitmq_net
+
 volumes:
   sql_data:
   rabbitmq_data:
+  redis-data:
 
 networks:
   rabbitmq_net:
