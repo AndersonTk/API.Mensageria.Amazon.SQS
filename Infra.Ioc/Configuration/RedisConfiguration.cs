@@ -26,7 +26,7 @@ public static class RedisConfiguration
     {
         var host = configuration["Redis:Address"]!;
         var port = int.Parse(configuration["Redis:Port"]!);
-        var password = configuration["Redis:Password"];
+        var password = configuration["Redis:Password"]!;
         var options = ConfigurationOptions.Parse($"{host}:{port}, abortConnect=false, ssl=false, sslProtocols={SslProtocols.Tls}");
         options.ConnectTimeout = 90000;
         options.SyncTimeout = 90000;
