@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using Cache;
+using Hangfire;
 using Infra.Data.Context;
 using Infra.Ioc.Configuration;
 using Infra.Ioc.Configuration.Swagger;
@@ -32,6 +33,7 @@ public static class ConfigureOptions
         options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
+        services.AddCacheModule(configuration);
         services.AddDependenceInjectionConsumer(configuration);
         services.AddMediatR();
         services.AddMassTransitConsumer(configuration);
