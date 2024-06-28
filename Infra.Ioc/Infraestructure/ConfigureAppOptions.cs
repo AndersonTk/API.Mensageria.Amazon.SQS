@@ -1,7 +1,5 @@
 ﻿using Domain.Extensions;
 using Hangfire;
-using Hangfire.Dashboard;
-using Infra.Ioc.Configuration;
 using Infra.Ioc.Configuration.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
@@ -40,10 +38,10 @@ public static class ConfigureAppOptions
         {
             endpoints.MapHangfireDashboard("/hangfire", new DashboardOptions
             {
-                DashboardTitle = "Api | Consumer - Gerenciador de Tarefas",
+                DashboardTitle = "Hangfire | Consumer",
                 AppPath = "/",
                 DisplayStorageConnectionString = false,
-                
+
             });
         });
 
