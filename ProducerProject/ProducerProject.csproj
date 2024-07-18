@@ -22,6 +22,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Infra.Ioc\Infra.Ioc.csproj" />
+	  <ProjectReference Include="..\SignalR.Hub\SqlTableDependency.ServiceBroken.csproj" />
 	</ItemGroup>
 
 </Project>

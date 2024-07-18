@@ -8,3 +8,6 @@ public class CategoryContract : ContractBase
 {
     public string Name { get; set; }
 }
+
+public class CategoryDeleteContract : ContractIdBase 
+{ }

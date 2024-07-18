@@ -10,8 +10,9 @@
 		<PackageReference Include="FluentMigrator" Version="5.2.0" />
 		<PackageReference Include="FluentMigrator.Runner" Version="5.2.0" />
 		<PackageReference Include="Hangfire.Core" Version="1.8.12" />
+		<PackageReference Include="Hangfire.Dashboard.Management.v2" Version="2.1.0" />
 		<PackageReference Include="Hangfire.Heartbeat" Version="0.6.0" />
-		<PackageReference Include="Hangfire.Tags.Redis" Version="1.3.3" />
+		<PackageReference Include="Hangfire.Redis.StackExchange" Version="1.9.3" />
 		<PackageReference Include="MassTransit.AmazonSQS" Version="8.2.2" />
 		<PackageReference Include="MassTransit.RabbitMQ" Version="8.2.2" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
@@ -30,6 +31,7 @@
 		<ProjectReference Include="..\Cache\Cache.csproj" />
 		<ProjectReference Include="..\Consumers\Domain.csproj" />
 		<ProjectReference Include="..\Infra.Data\Infra.Data.csproj" />
+		<ProjectReference Include="..\SignalR.Hub\SqlTableDependency.ServiceBroken.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -16,6 +16,9 @@ services:
       - "MassTransient:enable=true"
       - "RabbitMq:url=${RABBITMQ_URL}"
       - "ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}"
+      - Redis:Address=${REDIS_WRITEADDRESS}
+      - Redis:Port=${REDIS_WRITEPORT}
+      - Redis:Password=${REDIS_PASSWORD}
     networks:
         - rabbitmq_net
 
@@ -28,6 +31,7 @@ services:
     ports:
         - "5621:80"
     environment:
+        - "ConnectionStrings__DbConnection=${DB_CONNECTION_PRODUCER}"
         - "AccessKey=${RABBITMQ_ACCESSKEY}"
         - "SecretKey=${RABBITMQ_SECRETKEY}"
         - "MassTransient:enable=true"
@@ -72,10 +76,24 @@ services:
     networks:
       - rabbitmq_net
 
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+    environment:
+      - SERVICES=s3,dynamodb,sqs
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/tmp/localstack/data
+      - DEBUG=1
+    networks:
+      - rabbitmq_net
+
 volumes:
   sql_data:
   rabbitmq_data:
   redis-data:
+  localstack_data:
 
 networks:
   rabbitmq_net:

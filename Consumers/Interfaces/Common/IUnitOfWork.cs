@@ -2,6 +2,7 @@
 
 public interface IUnitOfWork : IDisposable
 {
+    public IProductRepository Product { get; set; }
     public ICategoryRepository Category { get; set; }
 
     Task SaveChangesAsync();

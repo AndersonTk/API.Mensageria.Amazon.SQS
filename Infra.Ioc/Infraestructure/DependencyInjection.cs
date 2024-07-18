@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SignalR.Hub;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
@@ -27,6 +28,7 @@ public static class DependencyInjection
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureConsumerSwaggerOptions>();
+
         #endregion
 
         #region Migration
@@ -46,6 +48,7 @@ public static class DependencyInjection
         #region ContainerDI
         services.AddScoped(typeof(IEventBusInterface<>), typeof(EventBus<>));
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureProducerSwaggerOptions>();
+        services.AddScoped<SignalRClient>();
         #endregion
     }
 }

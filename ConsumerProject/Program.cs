@@ -2,6 +2,8 @@ using Infra.Data.Context;
 using Infra.Ioc.Infraestructure;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
+using SignalR_Hub;
+using SqlTableDependency.ServiceBroken.Configuration;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +37,9 @@ app.UseSwaggerUI(c =>
         c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
     }
 });
+
+app.MapHub<ConnectHub>("connectionHub");
+app.UseTableDependency(builder.Configuration);
 
 app.MapControllers();
 

@@ -6,6 +6,7 @@ using Infra.Ioc.Configuration.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalR.Hub.Configuration;
 
 namespace Infra.Ioc.Infraestructure;
 public static class ConfigureOptions
@@ -41,10 +42,15 @@ public static class ConfigureOptions
         services.AddHangfire(configuration);
         services.AddVersioningConfig();
         services.AddSwaggerGenConfig(xmlDocumentationName);
+        services.ConfigureServiceBroker();
     }
 
     public static void ConfigureProducer(this IServiceCollection services, IConfiguration configuration, string xmlDocumentationName)
     {
+        services.AddDbContext<ProducerDbContext>(options =>
+        options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
+        b => b.MigrationsAssembly(typeof(ProducerDbContext).Assembly.FullName)));
+
         #region CORS
         services.AddCors(options =>
         {

@@ -14,6 +14,8 @@ public class CategoryProfile : Profile
             .ForMember(dest => dest.CreateUser, opt => opt.MapFrom(a => a.CreateUser))
             .ReverseMap();
 
-        CreateMap<Category, CategoryContract>().ReverseMap();
+        CreateMap<Category, CategoryContract>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(a => a.Id))
+            .ReverseMap();
     }
 }

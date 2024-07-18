@@ -1,13 +1,12 @@
 ﻿using Application.Common.Queries;
 using Application.DTOs;
+using Application.MediatR.UseCases;
 using AutoMapper;
 using Common.MediatR.Commands;
 using Controllers.Base;
 using Domain.Entities;
 using Domain.Interfaces.Common;
 using Hangfire;
-using Hangfire.Tags;
-using Hangfire.Tags.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -78,9 +77,8 @@ public class ProductController : MainController
     [HttpDelete]
     [Route("deletar-produto/{id}")]
     [Queue("produtos")]
-    [Tag("delete")]
     public async Task DeleteProductByIdAsync([FromRoute] Guid id)
-        => await _mediator.Send(new DeleteEntityCommand<Product> { Id = id });
+        => await _mediator.Send(new DeleteProduct { Id = id });
 
     /// <summary>
     /// Agenda uma tarefa com Tags
@@ -88,7 +86,5 @@ public class ProductController : MainController
     [HttpGet]
     [Route("tarefa-deletar-produto/{id}")]
     public async void ScheduleDeleteProductByIdAsync([FromRoute] Guid id)
-        => await Task.FromResult(BackgroundJob.Schedule(() => DeleteProductByIdAsync(id), TimeSpan.FromMinutes(1))
-                     .AddTags("consumer")
-                     .AddTags(nameof(Product).ToLower()));
+        => await Task.FromResult(BackgroundJob.Schedule(() => DeleteProductByIdAsync(id), TimeSpan.FromMinutes(1)));
 }
