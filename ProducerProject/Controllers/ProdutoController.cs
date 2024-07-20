@@ -49,7 +49,7 @@ public class ProdutoController : MainController
     /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetList()
-        => CustomResponse(_mapper.Map<ProductDto>(await _context.Product.ToListAsync()));
+        => CustomResponse(_mapper.Map< IList<ProductDto>>(await _context.Product.ToListAsync()));
 
     /// <summary>
     /// Salva um produto
