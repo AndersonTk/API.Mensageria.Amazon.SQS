@@ -7,6 +7,7 @@
 		<UserSecretsId>b0a13576-64cf-4e2e-8e90-be533f369f98</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DockerfileContext>..\..\..</DockerfileContext>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Infra.Ioc\Infra.Ioc.csproj" />
+	  <ProjectReference Include="..\..\..\Core\Infra.Ioc\Infra.Ioc.csproj" />
 	</ItemGroup>
 
 </Project>

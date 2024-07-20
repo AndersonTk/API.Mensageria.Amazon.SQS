@@ -27,11 +27,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Adapters\Cache\Cache.csproj" />
+		<ProjectReference Include="..\..\Adapters\Infra.Data\Infra.Data.csproj" />
+		<ProjectReference Include="..\..\Adapters\SqlTableDependency.ServiceBroken\SqlTableDependency.ServiceBroken.csproj" />
 		<ProjectReference Include="..\Application\Application.csproj" />
-		<ProjectReference Include="..\Cache\Cache.csproj" />
-		<ProjectReference Include="..\Consumers\Domain.csproj" />
-		<ProjectReference Include="..\Infra.Data\Infra.Data.csproj" />
-		<ProjectReference Include="..\SqlTableDependency.ServiceBroken\SqlTableDependency.ServiceBroken.csproj" />
 	</ItemGroup>
 
 </Project>
