@@ -39,6 +39,14 @@ public class CategoryController : MainController
     }
 
     /// <summary>
+    /// Lista as categorias
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> GetList()
+    => CustomResponse(_mapper.Map<CategoryDto>(await _context.Category.ToListAsync()));
+
+    /// <summary>
     /// Salva uma categoria
     /// </summary>
     /// <param name="category"></param>

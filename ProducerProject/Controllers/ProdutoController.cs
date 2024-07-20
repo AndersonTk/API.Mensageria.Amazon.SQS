@@ -44,6 +44,14 @@ public class ProdutoController : MainController
     }
 
     /// <summary>
+    /// Lista os produtos
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> GetList()
+        => CustomResponse(_mapper.Map<ProductDto>(await _context.Product.ToListAsync()));
+
+    /// <summary>
     /// Salva um produto
     /// </summary>
     /// <param name="product"></param>

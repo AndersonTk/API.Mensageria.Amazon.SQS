@@ -1,8 +1,6 @@
 ﻿using Application.Common.Queries;
 using Application.DTOs;
-using Application.MediatR.UseCases;
 using AutoMapper;
-using Common.MediatR.Commands;
 using Controllers.Base;
 using Domain.Entities;
 using Domain.Interfaces.Common;
@@ -30,7 +28,6 @@ public class ProductController : MainController
     /// <returns></returns>
     [HttpGet]
     [Route("listar-produtos")]
-    [Queue("produtos")]
     public async Task<IActionResult> GetAllAsync()
     {
         if (await _cache.ExitsAsync("produtos"))
@@ -68,23 +65,4 @@ public class ProductController : MainController
             return CustomResponse(await _cache.GetObjectAsync<ProductDto>($"produto:{id}"));
         }
     }
-
-    /// <summary>
-    /// Deleta um produto
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpDelete]
-    [Route("deletar-produto/{id}")]
-    [Queue("produtos")]
-    public async Task DeleteProductByIdAsync([FromRoute] Guid id)
-        => await _mediator.Send(new DeleteProductCommand { Id = id });
-
-    /// <summary>
-    /// Agenda uma tarefa com Tags
-    /// </summary>
-    [HttpGet]
-    [Route("tarefa-deletar-produto/{id}")]
-    public async void ScheduleDeleteProductByIdAsync([FromRoute] Guid id)
-        => await Task.FromResult(BackgroundJob.Schedule(() => DeleteProductByIdAsync(id), TimeSpan.FromMinutes(1)));
 }
