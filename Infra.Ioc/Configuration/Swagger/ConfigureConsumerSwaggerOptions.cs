@@ -26,10 +26,10 @@ public class ConfigureConsumerSwaggerOptions : IConfigureOptions<SwaggerGenOptio
     {
         var info = new OpenApiInfo()
         {
-            Title = "Api - Cadastro de produtos - Mensageria ",
+            Title = "Api - Catalogo de produtos - Consumer ",
             Version = description.ApiVersion.ToString(),
-            Description = "API de estudo e consulta! Utilizando MassTransit com Rabbitmq e Docker container",
-            Contact = new OpenApiContact() { Name = "DEV|FullStack|Asp .Net Core - Anderson Pinheiro", Email = "andersomlimapinheiro@gmail.com" },
+            Description = "API catalogo de produtos! essa api consume o catalogo de produtos.",
+            Contact = new OpenApiContact() { Name = "DEV | FullStack|Asp .Net Core - Anderson Pinheiro", Email = "andersomlimapinheiro@gmail.com" },
             TermsOfService = new Uri("https://opensource.org/licenses/MIT"),
             License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
         };

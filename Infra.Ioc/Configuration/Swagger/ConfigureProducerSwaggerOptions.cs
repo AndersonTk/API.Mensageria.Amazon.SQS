@@ -26,10 +26,9 @@ public class ConfigureProducerSwaggerOptions : IConfigureOptions<SwaggerGenOptio
     {
         var info = new OpenApiInfo()
         {
-            Title = "Api - Producer - Mensageria ",
+            Title = "Api - Cadastro de produtos - Producer ",
             Version = description.ApiVersion.ToString(),
-            Description = $@"API|Producer - Cadastro de Produtos!
-            Utilizando MassTransit com Rabbitmq e Docker container",
+            Description = "API Cadastro de produtos! Cadastra os produtos no lado administrador e dispara a o envio do produto para a api de catalogo!",
             Contact = new OpenApiContact() { Name = "DEV | FullStack|Asp .Net Core - Anderson Pinheiro", Email = "andersomlimapinheiro@gmail.com" },
             TermsOfService = new Uri("https://opensource.org/licenses/MIT"),
             License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
