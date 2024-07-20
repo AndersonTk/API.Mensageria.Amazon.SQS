@@ -3,7 +3,7 @@ using MassTransit;
 
 namespace Infra.Data.Repositories.Common;
 
-public class EventBus<TContract> : IEventBusInterface<TContract> where TContract : class
+public class EventBus : IEventBusInterface
 {
     private readonly IBus _bus;
 
@@ -12,7 +12,7 @@ public class EventBus<TContract> : IEventBusInterface<TContract> where TContract
         _bus = bus;
     }
 
-    public async Task SendMessageFifo(TContract contract, string queueName)
+    public async Task SendMessageFifo<TContract>(TContract contract, string queueName) where TContract : class
     {
         var sendEndpoint = await _bus.GetSendEndpoint(new Uri("queue:" + queueName));
 
@@ -23,9 +23,9 @@ public class EventBus<TContract> : IEventBusInterface<TContract> where TContract
         });
     }
     
-    public async Task SendMessage(TContract contract)
+    public async Task SendMessage<TContract>(TContract contract) where TContract : class
         => await _bus.Send(contract);
     
-    public async Task PublishMessage(TContract contract)
+    public async Task PublishMessage<TContract>(TContract contract) where TContract: class
         => await _bus.Publish(contract);
 }

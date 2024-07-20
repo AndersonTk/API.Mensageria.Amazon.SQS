@@ -13,3 +13,10 @@ public class ProductConsumer : ConsumerBase<Product, ProductContract, ProductOrc
     {
     }
 }
+
+public class ProductDeleteConsumer : DeleteConsumerBase<Product, ProductDeleteContract, DeleteProductCommand, bool>
+{
+    public ProductDeleteConsumer(IMediator mediator, IMapper mapper) : base(mediator, mapper)
+    {
+    }
+}

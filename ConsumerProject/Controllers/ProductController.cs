@@ -78,7 +78,7 @@ public class ProductController : MainController
     [Route("deletar-produto/{id}")]
     [Queue("produtos")]
     public async Task DeleteProductByIdAsync([FromRoute] Guid id)
-        => await _mediator.Send(new DeleteProduct { Id = id });
+        => await _mediator.Send(new DeleteProductCommand { Id = id });
 
     /// <summary>
     /// Agenda uma tarefa com Tags

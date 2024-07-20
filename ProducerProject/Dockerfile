@@ -11,7 +11,10 @@ COPY ["ProducerProject/ProducerProject.csproj", "ProducerProject/"]
 COPY ["Infra.Ioc/Infra.Ioc.csproj", "Infra.Ioc/"]
 COPY ["Application/Application.csproj", "Application/"]
 COPY ["Consumers/Domain.csproj", "Consumers/"]
+COPY ["Resources/Resources.csproj", "Resources/"]
+COPY ["Cache/Cache.csproj", "Cache/"]
 COPY ["Infra.Data/Infra.Data.csproj", "Infra.Data/"]
+COPY ["SqlTableDependency.ServiceBroken/SqlTableDependency.ServiceBroken.csproj", "SignalR.Hub/"]
 RUN dotnet restore "ProducerProject/ProducerProject.csproj"
 COPY . .
 WORKDIR "/src/ProducerProject"

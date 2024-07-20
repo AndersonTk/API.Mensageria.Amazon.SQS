@@ -11,11 +11,11 @@ using TableDependency.SqlClient.Base.EventArgs;
 using ErrorEventArgs = TableDependency.SqlClient.Base.EventArgs.ErrorEventArgs;
 
 namespace SqlTableDependency.ServiceBroken.SubscribeTableDependency;
-public class SubscribeCategoryTableDependency : SubscribeTableBase<CategoryContract>
+public class SubscribeCategoryTableDependency : SubscribeTableBase
 {
 
     SqlTableDependency<Category> _tableCategoryDependency;
-    public SubscribeCategoryTableDependency(IEventBusInterface<CategoryContract> bus, IMapper mapper) : base(bus, mapper)
+    public SubscribeCategoryTableDependency(IEventBusInterface bus, IMapper mapper) : base(bus, mapper)
     {
     }
 
@@ -36,12 +36,17 @@ public class SubscribeCategoryTableDependency : SubscribeTableBase<CategoryContr
     private void TableCategory_Onchange(object sender, RecordChangedEventArgs<Category> e)
     {
         var changeTypes = new List<ChangeType> { ChangeType.Insert, ChangeType.Update };
+
         if (changeTypes.Contains(e.ChangeType))
             _bus.PublishMessage(_mapper.Map<CategoryContract>(e.Entity));
+
+        if (e.ChangeType == ChangeType.Delete)
+            _bus.PublishMessage(_mapper.Map<CategoryDeleteContract>(e.Entity));
     }
 
     private void TableCategory_OnError(object sender, ErrorEventArgs e)
     {
         Console.WriteLine($"{nameof(Category)} SqlTableDependence error: {e.Error.Message}");
+        throw new Exception($"{nameof(Category)} SqlTableDependence error: {e.Error.Message}");
     }
 }

@@ -77,15 +77,18 @@ services:
       - rabbitmq_net
 
   localstack:
-    image: localstack/localstack
+    container_name: localstack
+    image: localstack/localstack:latest
     ports:
       - "4566:4566"
       - "4571:4571"
     environment:
-      - SERVICES=s3,dynamodb,sqs
+      - SERVICES=sqs,sns
       - DEFAULT_REGION=us-east-1
-      - DATA_DIR=/tmp/localstack/data
-      - DEBUG=1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    volumes:
+      - ./localstack:/docker-entrypoint-initaws.d
     networks:
       - rabbitmq_net
 
@@ -97,3 +100,4 @@ volumes:
 
 networks:
   rabbitmq_net:
+   driver: bridge

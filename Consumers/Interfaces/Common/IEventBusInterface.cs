@@ -1,8 +1,8 @@
 ﻿namespace Domain.Interfaces.Common;
 
-public interface IEventBusInterface<TContract> where TContract : class
+public interface IEventBusInterface
 {
-    Task SendMessageFifo(TContract contract, string queueName);
-    Task SendMessage(TContract contract);
-    Task PublishMessage(TContract contract);
+    Task SendMessageFifo<TContract>(TContract contract, string queueName) where TContract : class;
+    Task SendMessage<TContract>(TContract contract) where TContract : class;
+    Task PublishMessage<TContract>(TContract contract) where TContract : class;
 }

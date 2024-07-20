@@ -30,7 +30,7 @@ public static class ConfigureAppOptions
 
         app.UseRouting();
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseAuthorization();
 
@@ -59,14 +59,14 @@ public static class ConfigureAppOptions
             app.UseCors("CorsPolicy");
         }
 
-        app.UseHsts();
+        //app.UseHsts();
 
         app.UseApiVersioning();
 
         app.UseMiddleware<SwaggerAuthorizeMiddleware>();
         app.UseMiddleware<ExceptionMiddleware>();
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseAuthorization();
 

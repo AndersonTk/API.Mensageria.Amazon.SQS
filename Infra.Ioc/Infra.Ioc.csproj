@@ -21,7 +21,7 @@
 		<PackageReference Include="Serilog.Sinks.LogBee.AspNetCore" Version="1.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
 		<PackageReference Include="Hangfire" Version="1.8.12" />
 		<PackageReference Include="Hangfire.MemoryStorage" Version="1.8.0" />
 	</ItemGroup>
@@ -31,7 +31,7 @@
 		<ProjectReference Include="..\Cache\Cache.csproj" />
 		<ProjectReference Include="..\Consumers\Domain.csproj" />
 		<ProjectReference Include="..\Infra.Data\Infra.Data.csproj" />
-		<ProjectReference Include="..\SignalR.Hub\SqlTableDependency.ServiceBroken.csproj" />
+		<ProjectReference Include="..\SqlTableDependency.ServiceBroken\SqlTableDependency.ServiceBroken.csproj" />
 	</ItemGroup>
 
 </Project>

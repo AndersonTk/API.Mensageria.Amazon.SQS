@@ -7,9 +7,9 @@ namespace SignalR.Hub;
 public class SignalRClient
 {
     private readonly HubConnection _connection;
-    private readonly IEventBusInterface<ProductContract> _bus;
+    private readonly IEventBusInterface _bus;
 
-    public SignalRClient(IEventBusInterface<ProductContract> bus)
+    public SignalRClient(IEventBusInterface bus)
     {
         _connection = new HubConnectionBuilder()
             .WithUrl("https://localhost:7195/connectionHub")

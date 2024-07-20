@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Domain.Entities.Base;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -10,12 +9,10 @@ namespace Controllers.Base;
 [Route("api/v{version:apiVersion}/[controller]")]
 public abstract class MainController : ControllerBase
 {
-    public readonly IMediator _mediator;
     public readonly IMapper _mapper;
 
-    public MainController(IMediator mediator, IMapper mapper)
+    public MainController(IMapper mapper)
     {
-        _mediator = mediator;
         _mapper = mapper;
     }
 

@@ -14,9 +14,18 @@ public class ProductProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(a => a.Id == Guid.Empty ? Guid.NewGuid() : a.Id))
             .ReverseMap();
 
-        CreateMap<Product, ProductContract>().ReverseMap();
+        CreateMap<DeleteProductCommand, ProductDeleteContract>()
+            .ReverseMap();
+
+        CreateMap<Product, ProductContract>()
+            .ReverseMap();
+
         CreateMap<Product, ProductDto>()
             .ForMember(a => a.Category, opt => opt.MapFrom(a => a.Category.Name))
+            .ReverseMap();
+
+
+        CreateMap<Product, ProductDeleteContract>()
             .ReverseMap();
     }
 }

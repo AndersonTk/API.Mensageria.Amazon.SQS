@@ -2,7 +2,6 @@ using Infra.Data.Context;
 using Infra.Ioc.Infraestructure;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using SignalR.Hub.Configuration;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +10,10 @@ var services = builder.Services;
 
 services.ConfigureProducer(builder.Configuration, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 
 builder.Services.AddEndpointsApiExplorer();
 

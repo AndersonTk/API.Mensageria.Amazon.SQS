@@ -12,7 +12,9 @@ COPY ["Infra.Ioc/Infra.Ioc.csproj", "Infra.Ioc/"]
 COPY ["Application/Application.csproj", "Application/"]
 COPY ["Consumers/Domain.csproj", "Consumers/"]
 COPY ["Resources/Resources.csproj", "Resources/"]
+COPY ["Cache/Cache.csproj", "Cache/"]
 COPY ["Infra.Data/Infra.Data.csproj", "Infra.Data/"]
+COPY ["SqlTableDependency.ServiceBroken/SqlTableDependency.ServiceBroken.csproj", "SqlTableDependency.ServiceBroken/"]
 RUN dotnet restore "ConsumerProject/ConsumerProject.csproj"
 COPY . .
 WORKDIR "/src/ConsumerProject"

@@ -23,7 +23,7 @@ public static class DependencyInjection
     {
         #region ContainerDI
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped(typeof(IEventBusInterface<>), typeof(EventBus<>));
+        services.AddScoped<IEventBusInterface, EventBus>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
@@ -46,7 +46,7 @@ public static class DependencyInjection
     public static void AddDependenceInjectionProducer(this IServiceCollection services)
     {
         #region ContainerDI
-        services.AddScoped(typeof(IEventBusInterface<>), typeof(EventBus<>));
+        services.AddScoped<IEventBusInterface, EventBus>();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureProducerSwaggerOptions>();
         services.AddScoped<SignalRClient>();
         #endregion

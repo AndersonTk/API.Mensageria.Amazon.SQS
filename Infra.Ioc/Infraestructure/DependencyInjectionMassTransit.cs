@@ -48,7 +48,9 @@ public static class DependencyInjectionMassTransit
                                     TimeSpan.FromSeconds(10)));
 
                     cfg.Message<CategoryContract>(x => x.SetEntityName(TopicNames.CategoryTopic.EnviromentName()));
+                    cfg.Message<CategoryDeleteContract>(x => x.SetEntityName(TopicNames.CategoryDeleteTopic.EnviromentName()));
                     cfg.Message<ProductContract>(x => x.SetEntityName(TopicNames.ProductTopic.EnviromentName()));
+                    cfg.Message<ProductDeleteContract>(x => x.SetEntityName(TopicNames.ProductDeleteTopic.EnviromentName()));
 
                     cfg.ConfigureEndpoints(context, new DefaultEndpointNameFormatter($"{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower()}-", false));
                 });
