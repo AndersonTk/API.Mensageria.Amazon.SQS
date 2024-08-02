@@ -3,7 +3,7 @@ services:
   apiconsumer:
     build: 
         context: .
-        dockerfile: /ConsumerProject/Dockerfile
+        dockerfile: /Adapters/Api/ConsumerProject/Dockerfile
     depends_on:
         - sqlserver
         - rabbitmq
@@ -25,7 +25,7 @@ services:
   apiproducer:
     build:
         context: .
-        dockerfile: /ProducerProject/Dockerfile
+        dockerfile: /Adapters/Api/ProducerProject/Dockerfile
     depends_on:
         - rabbitmq
     ports:
