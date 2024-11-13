@@ -11,9 +11,9 @@ public static class ConfigureSqlServiceBroken
         var scope = applicationBuilder.ApplicationServices.CreateScope();
 
         var subscribeProductTable = scope.ServiceProvider.GetRequiredService<SubscribeProductTableDependency>();
-        subscribeProductTable.SubscribeProductDependency(configuration);
+        //subscribeProductTable.SubscribeProductDependency(configuration);
 
         var subscribeCategoryTable = scope.ServiceProvider.GetRequiredService<SubscribeCategoryTableDependency>();
-        subscribeCategoryTable.SubscribeCategoryDependency(configuration);
+        //subscribeCategoryTable.SubscribeCategoryDependency(configuration);
     }
 }

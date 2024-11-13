@@ -64,4 +64,44 @@ public class CategoryController : MainController
             return CustomResponse(await _cache.GetObjectAsync<CategoryDto>($"categoria:{id}"));
         }
     }
+
+    [HttpPost("convert-base64-to-image")]
+    public IActionResult ConvertBase64ToImage([FromBody] Base64ImageRequest request)
+    {
+        if (string.IsNullOrEmpty(request.Base64Image))
+        {
+            return BadRequest("Base64 string is null or empty.");
+        }
+
+        try
+        {
+            string base64Data;
+            string contentType;
+
+            if (request.Base64Image.Contains(","))
+            {
+                var parts = request.Base64Image.Split(',');
+                base64Data = parts[1];
+                contentType = parts[0].Split(':')[1].Split(';')[0];
+            }
+            else
+            {
+                base64Data = request.Base64Image;
+                contentType = "image/jpeg";
+            }
+
+            byte[] imageBytes = Convert.FromBase64String(base64Data);
+
+            return File(imageBytes, contentType, "image." + contentType.Split('/')[1]);
+        }
+        catch (FormatException)
+        {
+            return BadRequest("Invalid Base64 string.");
+        }
+    }
+
+    public class Base64ImageRequest
+    {
+        public string Base64Image { get; set; }
+    }
 }
