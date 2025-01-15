@@ -22,12 +22,11 @@ public class SubscribeProductTableDependency : SubscribeTableBase
     public void SubscribeProductDependency(IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DbConnection");
-        var connectionString2 = "Server=sqlserver;Initial Catalog=producer_database;User Id=sa;Password=@62745623Tk;";
 
         var mapper = new ModelToTableMapper<Product>();
         mapper.AddMapping(c => c.Id, "ProductId");
 
-        _tableProductDependency = new SqlTableDependency<Product>(connectionString2, mapper: mapper);
+        _tableProductDependency = new SqlTableDependency<Product>(connectionString, mapper: mapper);
         _tableProductDependency.OnChanged += TableProduct_Onchange;
         _tableProductDependency.OnError += TableProduct_OnError;
         _tableProductDependency.Start();

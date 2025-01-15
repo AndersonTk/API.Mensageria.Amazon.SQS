@@ -22,12 +22,11 @@ public class SubscribeCategoryTableDependency : SubscribeTableBase
     public void SubscribeCategoryDependency(IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DbConnection");
-        var connectionString2 = "Server=sqlserver;Initial Catalog=producer_database;User Id=sa;Password=@62745623Tk;";
 
         var mapper = new ModelToTableMapper<Category>();
         mapper.AddMapping(c => c.Id, "CategoryId");
 
-        _tableCategoryDependency = new SqlTableDependency<Category>(connectionString2, mapper: mapper);
+        _tableCategoryDependency = new SqlTableDependency<Category>(connectionString, mapper: mapper);
         _tableCategoryDependency.OnChanged += TableCategory_Onchange;
         _tableCategoryDependency.OnError += TableCategory_OnError;
         _tableCategoryDependency.Start();
