@@ -2,6 +2,7 @@
 using Domain.Entities.Base;
 using Infra.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Infra.Data.Context;
 
@@ -17,8 +18,12 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.ApplyConfiguration(new CategoryMapping());
-        builder.ApplyConfiguration(new ProductMapping());
+        builder.ApplyConfigurationsFromAssembly(new CategoryMapping().GetType().Assembly);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

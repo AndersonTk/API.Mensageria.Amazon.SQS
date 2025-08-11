@@ -3,6 +3,7 @@ using Domain.Interfaces;
 using Domain.Interfaces.Base;
 using Domain.Interfaces.Common;
 using FluentMigrator.Runner;
+using Infra.Data.Context;
 using Infra.Data.Repositories;
 using Infra.Data.Repositories.Base;
 using Infra.Data.Repositories.Common;
@@ -46,6 +47,7 @@ public static class DependencyInjection
     public static void AddDependenceInjectionProducer(this IServiceCollection services)
     {
         #region ContainerDI
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IEventBusInterface, EventBus>();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureProducerSwaggerOptions>();
         services.AddScoped<SignalRClient>();

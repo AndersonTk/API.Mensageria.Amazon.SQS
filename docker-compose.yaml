@@ -65,6 +65,27 @@ services:
     networks:
       - rabbitmq_net
 
+  chat-api:
+    image: minhaimagem/chat-api:latest
+    build:
+      context: ../../IATec.Portal.Comunication.Module 
+      dockerfile: C:\Users\anderson.pinheiro\source\repos\IATec.Portal.Comunication.Module\IATec.Portal.Comunication.Module\Dockerfile
+    ports:
+      - "8080:8080"    # HTTP
+      - "8081:8081"    # HTTPS (opcional)
+    depends_on:
+      - redis
+    networks:
+      - rabbitmq_net
+    environment:
+      - "ConnectionStrings__DbConnection=${DB_CONNECTION_CHAT_DEV}"
+      # a seguir, as vars do Redis
+      - Redis:Address=${REDIS_WRITEADDRESS}
+      - Redis:Port=${REDIS_WRITEPORT}
+      - Redis:Password=${REDIS_PASSWORD}
+      - Redis:instanceName=${REDIS_INSTANCENAME}
+      - "ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}"
+
   redis:
     image: redis
     container_name: redis

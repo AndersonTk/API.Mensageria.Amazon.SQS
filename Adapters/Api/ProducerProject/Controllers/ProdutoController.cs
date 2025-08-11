@@ -18,15 +18,18 @@ public class ProdutoController : MainController
     private readonly IEventBusInterface _bus;
     private readonly SignalRClient _signalRClient;
     private readonly ProducerDbContext _context;
+    private readonly IRepository<Product> _repository;
 
     public ProdutoController(IMapper mapper,
                              IEventBusInterface bus,
                              SignalRClient signalRClient,
-                             ProducerDbContext context) : base(mapper)
+                             ProducerDbContext context,
+                             IRepository<Product> repository) : base(mapper)
     {
         _bus = bus;
         _signalRClient = signalRClient;
         _context = context;
+        _repository = repository;
     }
 
 
@@ -49,7 +52,7 @@ public class ProdutoController : MainController
     /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetList()
-        => CustomResponse(_mapper.Map< IList<ProductDto>>(await _context.Product.Include(a => a.Category).ToListAsync()));
+        => CustomResponse(_mapper.Map< IList<ProductDto>>(await _repository.GetAllQuerable().Include(a => a.Category).ToListAsync()));
 
     /// <summary>
     /// Salva um produto
