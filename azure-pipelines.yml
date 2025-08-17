@@ -14,39 +14,24 @@ pool:
   name: 'Default'
 
 variables:
-  buildConfiguration: 'Release'
-  artifactName: 'drop'
-  iisPath: './Adapters/Api/ProducerProject/ProducerProject.csproj'
+  imageName: estudomensageria
 
-stages:
-# -------------------- BUILD --------------------
-- stage: Build
-  displayName: Build & Publish
-  jobs:
-  - job: Build
-    steps:
-    - task: UseDotNet@2
-      displayName: 'Use .NET SDK'
-      inputs:
-        packageType: 'sdk'
-        version: '8.0.x'          # ajuste para sua versão
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
 
-    - script: |
-        dotnet restore $(iisPath)
-        dotnet build $(iisPath) -c $(buildConfiguration) --no-restore
-        dotnet publish $(iisPath) -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/publish --no-build
-      displayName: 'Restore/Build/Publish'
+- script: dotnet restore
+  displayName: 'Restore NuGet packages'
 
-    - task: ArchiveFiles@2
-      inputs:
-        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/publish'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'
-        replaceExistingArchive: true
+- script: dotnet build --configuration Release
+  displayName: 'Build application'
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+- script: dotnet publish -c Release -o $(Build.ArtifactStagingDirectory)/publish
+  displayName: 'Publish application'
+
+# Build Docker image
+- script: |
+    docker build -t $(imageName):$(Build.BuildId) .
+  displayName: 'Build Docker image'
